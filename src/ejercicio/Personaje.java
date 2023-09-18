@@ -6,7 +6,7 @@ import java.util.Objects;
 public class Personaje {
 
 	private String nombre;
-	private int puntosVida, puntosConseguidos, numObjetos;
+	private int puntosVida, puntosConseguidos, numObjetos, puntosFuerza;
 	private String[] mochila;
 	
 	public Personaje() {
@@ -59,6 +59,14 @@ public class Personaje {
 		this.mochila = mochila;
 	}
 
+	public int getPuntosFuerza() {
+		return puntosFuerza;
+	}
+
+	public void setPuntosFuerza(int puntosFuerza) {
+		this.puntosFuerza = puntosFuerza;
+	}
+
 	@Override
 	public String toString() {
 		return "Personaje [nombre=" + nombre + ", puntosVida=" + puntosVida + ", puntosConseguidos=" + puntosConseguidos
@@ -98,13 +106,17 @@ public class Personaje {
 		}
 	}
 	
-	public int recibirGolpe (int dano) {
-		puntosVida-=dano;
-		if(puntosVida<=0) {
-			setPuntosVida(0);
+	public int golpear(Personaje p) {
+		return ((int)Math.floor(Math.random() * (3 - 1 + 1)) + 1)*p.getPuntosFuerza();
+	}
+	
+	public int recibirGolpe (int dano, Personaje p) {
+		p.setPuntosVida(p.getPuntosVida()-dano);
+		if(p.getPuntosVida()<=0) {
+			p.setPuntosVida(0);
 			System.out.println("Has MUERTO");
 		}
-		return puntosVida;
+		return p.getPuntosVida();
 	}
 	
 	public String curar () {
@@ -122,4 +134,5 @@ public class Personaje {
 		else
 			return "No se ha encontrado el objeto tipo BOTIQUIN";
 	}
+
 }
